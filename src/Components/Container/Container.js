@@ -1,4 +1,5 @@
 import React from 'react';
+import { View, Text, Button } from 'react-native';
 import axios from 'axios';
 import './Container.css';
 import LoginCard from '../LoginCard/LoginCard';
@@ -325,13 +326,13 @@ class Container extends React.Component {
   render() {
     if (this.state.page === 1) {
       return (
-        <div className="Container-contain">
+        <View className="Container-contain">
           <LoginCard
             onClick={() => this.onClickHandler()}
             onChange={event => this.onChangeHandler(event)}
             username={this.state.username}
           />
-        </div>
+        </View>
       );
     } else if (this.state.page === 2) {
       const rows = [];
@@ -347,51 +348,51 @@ class Container extends React.Component {
       }
 
       const buttn = this.state.answered.length === 12 ?
-        (<button onClick={() => { this.onClickHandler1(); }}>Calculate</button>) :
-        (<button>Calculate</button>);
+        (<Button onPress={() => { this.onClickHandler1(); }} title="Calculate" />) :
+        (<Button title="Calculate" />);
 
       return (
-        <div>
-          <div className="Container-ques">
+        <View>
+          <View className="Container-ques">
             {rows}
-          </div>
-          <div className="Container-btn">
+          </View>
+          <View className="Container-btn">
             {/* <button onClick={() => { this.onClickHandler1(); }}>Calculate</button> */}
             {buttn}
-          </div>
-        </div>
+          </View>
+        </View>
       );
     }
     const rows = [];
     for (let i = 0; i < this.state.leaderboard.length; i += 1) {
-      rows.push(<div className="Container-leaders">
-        <span className="Container-username"><span className="Container-leaders-black">{i + 1}.</span>
-          <span className={this.state.username === this.state.leaderboard[i].username ? 'Container-userRED' : ''}>{this.state.leaderboard[i].username}</span>
-        </span>
-        <span className="Container-scores">{this.state.leaderboard[i].score}</span>
-                </div>);
+      rows.push(<View className="Container-leaders">
+        <Text className="Container-username"><Text className="Container-leaders-black">{i + 1}.</Text>
+          <Text className={this.state.username === this.state.leaderboard[i].username ? 'Container-userRED' : ''}>{this.state.leaderboard[i].username}</Text>
+        </Text>
+        <Text className="Container-scores">{this.state.leaderboard[i].score}</Text>
+                </View>);
     }
 
     return (
-      <div>
-        <div className="Container-usr">
+      <View>
+        <View className="Container-usr">
           Hello {this.state.username}
-        </div>
-        <div className="Container-pg3">
-          <div className="Container-text">
+        </View>
+        <View className="Container-pg3">
+          <View className="Container-text">
               Your Score
-          </div>
-          <div className="Container-score">
-            {this.state.score}<span className="Container-sl">/{this.state.answered.length}</span>
-          </div>
-          <div className="Container-leaderboard">
+          </View>
+          <View className="Container-score">
+            {this.state.score}<Text className="Container-sl">/{this.state.answered.length}</Text>
+          </View>
+          <View className="Container-leaderboard">
             {rows}
-          </div>
-        </div>
-        <div className="Container-playagain">
+          </View>
+        </View>
+        <View className="Container-playagain">
           <button onClick={() => { this.onClickHandler2(); }}>Play Again</button>
-        </div>
-      </div>
+        </View>
+      </View>
     );
   }
 }
