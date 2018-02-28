@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import axios from 'axios';
-import './Container.css';
+import * as styles from './Container.style';
 import LoginCard from '../LoginCard/LoginCard';
 import QuestionCard from '../QuestionCard/QuestionCard';
 
