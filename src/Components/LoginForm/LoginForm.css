@@ -1,0 +1,30 @@
+.LoginForm-outer {
+    position: relative;
+    background-color: white;
+    height: 50%;
+    width: 100%;
+    text-align: center;
+}
+
+.LoginForm-text {
+    position: relative;
+    top: 10px;
+    padding: 10px;
+    text-align: left;
+}
+
+.LoginForm-label {
+    position: relative;
+    top: 10px;
+    padding: 10px;
+    text-align: left;
+}
+.LoginForm-inp {
+    position: relative;
+    top: 20px;
+}
+
+.LoginForm-btn {
+    position: relative;
+    top: 30px;
+}

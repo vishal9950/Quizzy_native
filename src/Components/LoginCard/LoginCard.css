@@ -1,0 +1,17 @@
+.LoginCard-outer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+}
+
+.LoginCard-form {
+    width: 30%;
+}
+
+.LoginCard-greet {
+    position: relative;
+    left: 0px;
+    width: 30%;
+}

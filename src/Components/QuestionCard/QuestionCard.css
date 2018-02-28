@@ -1,0 +1,24 @@
+.QuestionCard-outer {
+    padding: 20px;
+    margin: 20px;
+    text-align: left;
+    border: 1px solid black;
+    height: 120px;
+    width: 75%;
+}
+
+.QuestionCard-no {
+    font-weight: bold;
+}
+
+.QuestionCard-ques {
+    border: 1px solid black;
+    width: 100%;
+    text-align: center;
+    background-color: #6ac5f0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    left: 0px;
+    right: 0px;
+}
