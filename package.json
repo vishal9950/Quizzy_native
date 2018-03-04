@@ -4,12 +4,17 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "ios": "node_modules/.bin/react-native run-ios --simulator \"iPhone X\""
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "fetch": "^1.1.0",
+    "prop-types": "^15.6.1",
     "react": "16.2.0",
-    "react-native": "0.53.3"
+    "react-native": "0.53.3",
+    "react-native-axios": "^0.17.1",
+    "react-native-radio-button": "^2.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",

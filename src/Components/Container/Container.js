@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import axios from 'axios';
+import { View, Text, Button, ScrollView } from 'react-native';
+// import fetch from 'fetch';
 import * as styles from './Container.style';
 import LoginCard from '../LoginCard/LoginCard';
 import QuestionCard from '../QuestionCard/QuestionCard';
@@ -52,26 +52,25 @@ class Container extends React.Component {
 
   onClickHandler1 = () => {
     const options = {
-      url: '/users',
       method: 'POST',
-      data: {
+      data: JSON.stringify({
         username: this.state.username,
         score: this.state.score,
-      },
+      }),
     };
-    axios(options).then(() => {
-      axios.get('/leaderboard').then((leaders) => {
+    fetch('http://localhost:8000/users', options).then(() => {
+      fetch('http://localhost:8000/leaderboard').then(response => response.json()).then((leaders) => {
         this.setState({
           page: 3,
-          leaderboard: leaders.data,
+          leaderboard: leaders,
         });
       });
     });
   }
 
-  onChangeHandler1 = (event, quesid) => {
-    event.persist();
-    console.log(`here ${event.target.value} ${quesid}`);
+  onChangeHandler1 = (value, quesid) => {
+    // event.persist();
+    console.log(`here ${value} ${quesid}`);
     let i;
     for (i = 0; i < this.state.ques.length; i += 1) {
       if (this.state.ques[i].quesid === quesid) {
@@ -92,29 +91,27 @@ class Container extends React.Component {
       }
     }
     console.log(`j: kjbkhb: ${j}`);
-    if (event.target.value === this.state.ques[i].correctans) {
+    if (value === this.state.ques[i].correctans) {
       console.log('here1');
       if (j !== this.state.answered.length && flag === 2) {
         console.log('here2');
         const temp = this.state.answered;
         temp[j].rt = true;
-        temp[j].option = event.target.value;
+        temp[j].option = value;
         temp[j].username = this.state.username;
         const options = {
-          url: '/users',
           method: 'POST',
-          data: {
+          data: JSON.stringify({
             username: this.state.username,
             score: this.state.score + 1,
-          },
+          }),
         };
-        axios(options).then(() => {
+        fetch('http://localhost:8000/users', options).then(() => {
           const options1 = {
-            url: '/sync',
             method: 'POST',
             data: JSON.stringify(temp),
           };
-          axios(options1).then(() => {
+          fetch('http://localhost:8000/sync', options1).then(() => {
             console.log('Score saved!');
             this.setState({
               answered: temp,
@@ -125,14 +122,13 @@ class Container extends React.Component {
       } else if (j !== this.state.answered.length && flag === 1) {
         const temp = this.state.answered;
         temp[j].rt = true;
-        temp[j].option = event.target.value;
+        temp[j].option = value;
         temp[j].username = this.state.username;
         const options = {
-          url: '/sync',
           method: 'POST',
           data: JSON.stringify(temp),
         };
-        axios(options).then(() => {
+        fetch('http://localhost:8000/sync', options).then(() => {
           console.log('here3');
           this.setState({
             answered: temp,
@@ -142,31 +138,29 @@ class Container extends React.Component {
       } else if (j === this.state.answered.length) {
         console.log('here4');
         const options = {
-          url: '/users',
           method: 'POST',
-          data: {
+          data: JSON.stringify({
             username: this.state.username,
             score: this.state.score + 1,
-          },
+          }),
         };
-        axios(options).then(() => {
+        fetch('http://localhost:8000/users', options).then(() => {
           const options1 = {
-            url: '/sync',
             method: 'POST',
             data: JSON.stringify(this.state.answered.concat({
               quesid,
               rt: true,
-              option: event.target.value,
+              option: value,
               username: this.state.username,
             })),
           };
-          axios(options1).then(() => {
+          fetch('http://localhost:8000/sync', options1).then(() => {
             console.log('Score saved!');
             this.setState({
               answered: this.state.answered.concat({
                 quesid,
                 rt: true,
-                option: event.target.value,
+                option: value,
                 username: this.state.username,
               }),
               score: this.state.score + 1,
@@ -175,19 +169,18 @@ class Container extends React.Component {
         });
       }
     }
-    if (event.target.value !== this.state.ques[i].correctans) {
+    if (value !== this.state.ques[i].correctans) {
       console.log(`here5: j: ${j}`);
       if (j !== this.state.answered.length && flag === 2) {
         const temp = this.state.answered;
         temp[j].rt = false;
-        temp[j].option = event.target.value;
+        temp[j].option = value;
         temp[j].username = this.state.username;
         const options = {
-          url: '/sync',
           method: 'POST',
           data: JSON.stringify(temp),
         };
-        axios(options).then(() => {
+        fetch('http://localhost:8000/sync', options).then(() => {
           console.log('here6');
           this.setState({
             answered: temp,
@@ -198,24 +191,22 @@ class Container extends React.Component {
         console.log('here7');
         const temp = this.state.answered;
         temp[j].rt = false;
-        temp[j].option = event.target.value;
+        temp[j].option = value;
         temp[j].username = this.state.username;
         const options = {
-          url: '/users',
           method: 'POST',
-          data: {
+          data: JSON.stringify({
             username: this.state.username,
             score: this.state.score - 1,
-          },
+          }),
         };
-        axios(options).then(() => {
+        fetch('http://localhost:8000/users', options).then(() => {
           console.log('Users');
           const options1 = {
-            url: '/sync',
             method: 'POST',
             data: JSON.stringify(temp),
           };
-          axios(options1).then(() => {
+          fetch('http://localhost:8000/sync', options1).then(() => {
             console.log('Score saved!');
             this.setState({
               answered: temp,
@@ -225,22 +216,21 @@ class Container extends React.Component {
         });
       } else if (j === this.state.answered.length) {
         const options = {
-          url: '/sync',
           method: 'POST',
           data: JSON.stringify(this.state.answered.concat({
             quesid,
             rt: false,
-            option: event.target.value,
+            option: value,
             username: this.state.username,
           })),
         };
-        axios(options).then(() => {
+        fetch('http://localhost:8000/sync', options).then(() => {
           console.log('here8');
           this.setState({
             answered: this.state.answered.concat({
               quesid,
               rt: false,
-              option: event.target.value,
+              option: value,
               username: this.state.username,
             }),
           });
@@ -251,7 +241,7 @@ class Container extends React.Component {
 
   onChangeHandler = (event) => {
     this.setState({
-      username: `${event.target.value}`,
+      username: event,
     });
   }
 
@@ -267,33 +257,31 @@ class Container extends React.Component {
     }
     if (flag === 1) {
       console.log('no');
-      const options = {
-        url: `/sync/${this.state.username}`,
-        method: 'GET',
-      };
-      axios(options).then((state) => {
-        axios.get(`/score/${this.state.username}`).then((scores) => {
-          this.setState({
-            ...this.state,
-            score: scores.data[0].score,
-            answered: state.data,
-            page: 2,
-          });
-        });
-      });
+      // const options = {
+      //   method: 'GET',
+      // };
+      // fetch(`http://localhost:8000/sync/${this.state.username}`).then((state) => {
+      //   fetch(`/score/${this.state.username}`).then((scores) => {
+      //     this.setState({
+      //       ...this.state,
+      //       score: scores.data[0].score,
+      //       answered: state.data,
+      //       page: 2,
+      //     });
+      //   });
+      // });
       // axios.get('/state').then((state) => {
 
       // })
     } else {
       const options = {
-        url: '/users',
         method: 'POST',
-        data: {
+        body: JSON.stringify({
           username: this.state.username,
           score: this.state.score,
-        },
+        }),
       };
-      axios(options).then(() => {
+      fetch('http://localhost:8000/users', options).then(response => response.text()).then(() => {
         console.log('User created!');
       });
       this.setState({
@@ -311,14 +299,27 @@ class Container extends React.Component {
   //   }
 
   getUsers = () => {
-    axios.get('/users').then((allUsers) => {
-      axios.post('/ques').then(() => {
-        axios.get('/ques').then((allQues) => {
-          this.setState({
-            users: allUsers.data,
-            ques: allQues.data,
-          });
+    fetch('http://localhost:8000/users').then(response => response.json()).then((allUsers) => {
+      // console.log(allUsers);
+      fetch('http://localhost:8000/ques').then(response => response.json()).then((allQues) => {
+        this.setState({
+          users: this.state.users.concat(allUsers),
+          ques: this.state.ques.concat(allQues),
         });
+      }).then(() => {
+        if (this.state.ques.length === 0) {
+          const options = {
+            method: 'POST',
+          };
+          fetch('http://localhost:8000/ques', options).then(() => {
+            fetch('http://localhost:8000/ques').then(response => response.json()).then((allQues) => {
+              this.setState({
+                users: this.state.users.concat(allUsers),
+                ques: this.state.ques.concat(allQues),
+              });
+            });
+          });
+        }
       });
     });
   }
@@ -326,7 +327,7 @@ class Container extends React.Component {
   render() {
     if (this.state.page === 1) {
       return (
-        <View className="Container-contain">
+        <View className="Container-contain" style={styles.ContainerContain}>
           <LoginCard
             onClick={() => this.onClickHandler()}
             onChange={event => this.onChangeHandler(event)}
@@ -343,53 +344,56 @@ class Container extends React.Component {
           ques={this.state.ques[i]}
           answered={this.state.answered}
           score={this.state.score}
-          onChange={(event, quesid) => this.onChangeHandler1(event, quesid)}
+          onChange={(value, quesid) => this.onChangeHandler1(value, quesid)}
         />);
       }
 
-      const buttn = this.state.answered.length === 12 ?
+      const buttn = this.state.answered.length === this.state.ques.length ?
         (<Button onPress={() => { this.onClickHandler1(); }} title="Calculate" />) :
         (<Button title="Calculate" />);
 
       return (
         <View>
-          <View className="Container-ques">
+            <Text style={styles.ContainerUsername}>Hello {this.state.username}</Text>
+            <ScrollView>
+              <View className="Container-ques" style={styles.ContainerQues}>
             {rows}
-          </View>
-          <View className="Container-btn">
+              </View>
+          <View className="Container-btn" style={styles.ContainerBtn}>
             {/* <button onClick={() => { this.onClickHandler1(); }}>Calculate</button> */}
             {buttn}
           </View>
+            </ScrollView>
         </View>
       );
     }
     const rows = [];
     for (let i = 0; i < this.state.leaderboard.length; i += 1) {
-      rows.push(<View className="Container-leaders">
-        <Text className="Container-username"><Text className="Container-leaders-black">{i + 1}.</Text>
+      rows.push(<View className="Container-leaders" style={styles.ContainerLeaders}>
+        <Text className="Container-username"><Text className="Container-leaders-black" style={styles.ContainerLeadersBlack}>{i + 1}.</Text>
           <Text className={this.state.username === this.state.leaderboard[i].username ? 'Container-userRED' : ''}>{this.state.leaderboard[i].username}</Text>
         </Text>
-        <Text className="Container-scores">{this.state.leaderboard[i].score}</Text>
+        <Text className="Container-scores" style={styles.ContainerScores}>{this.state.leaderboard[i].score}</Text>
                 </View>);
     }
 
     return (
       <View>
-        <View className="Container-usr">
+        <View className="Container-usr" style={styles.ContainerUsr}>
           Hello {this.state.username}
         </View>
         <View className="Container-pg3">
-          <View className="Container-text">
-              Your Score
+          <View className="Container-text" style={styles.ContainerText}>
+              <Text>Your Score</Text>
           </View>
-          <View className="Container-score">
-            {this.state.score}<Text className="Container-sl">/{this.state.answered.length}</Text>
+          <View className="Container-score" style={styles.ContainerScore}>
+            {this.state.score}<Text className="Container-sl" style={styles.Containersl}>/{this.state.answered.length}</Text>
           </View>
-          <View className="Container-leaderboard">
+          <View className="Container-leaderboard" style={styles.ContainerLeaderboard}>
             {rows}
           </View>
         </View>
-        <View className="Container-playagain">
+        <View className="Container-playagain" style={styles.ContainerPlayagain}>
           <button onClick={() => { this.onClickHandler2(); }}>Play Again</button>
         </View>
       </View>

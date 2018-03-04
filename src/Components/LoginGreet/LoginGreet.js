@@ -1,5 +1,6 @@
 import React from 'react';
-import './LoginGreet.css';
+import { View, Text } from 'react-native';
+import styles from './LoginGreet.style';
 
 class LoginGreet extends React.Component {
   constructor(props) {
@@ -11,11 +12,11 @@ class LoginGreet extends React.Component {
 
   render() {
     return (
-      <div className="LoginGreet-outer">
-        <div className="LoginGreet-txt"><div className="Login-txt">Welcome</div></div>
-        <div className="LoginGreet-txt"><div className="Login-txt">to</div></div>
-        <div className="LoginGreet-main"><div id="LoginGreet-logo" className="Login-txt">Quizzy !</div></div>
-      </div>
+      <View className="LoginGreet-outer" style={styles.LoginGreetOuter}>
+        <View className="LoginGreet-txt"><View className="Login-txt"><Text style={styles.LoginTxt}>Welcome</Text></View></View>
+        <View className="LoginGreet-txt"><View className="Login-txt"><Text style={styles.LoginTxt}>to</Text></View></View>
+        <View className="LoginGreet-main"><View className="Login-txt"><Text style={styles.LoginGreetLogo}>Quizzy !</Text></View></View>
+      </View>
     );
   }
 }

@@ -1,8 +1,9 @@
 export const ContainerContain = {
-  backgroundColor: '#18224b',
-  width: '100vw',
-  height: '100vh',
+  backgroundColor: 'white',
+  width: '100%',
+  height: '100%',
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
 };
@@ -12,11 +13,13 @@ export const ContainerQues = {
   flexDirection: 'column',
   alignItems: 'center',
   padding: 20,
+  zIndex: -1,
 };
 
 export const ContainerBtn = {
   textAlign: 'center',
-  paddingBottom: 30,
+  marginBottom: 100,
+  zIndex: -1,
 };
 
 export const ContainerUsr = {
@@ -25,6 +28,7 @@ export const ContainerUsr = {
   position: 'relative',
   top: -40,
   right: 30,
+  zIndex: -1,
 };
 
 export const ContainerText = {
@@ -33,6 +37,7 @@ export const ContainerText = {
   position: 'relative',
   left: 30,
   top: 30,
+  zIndex: -1,
 };
 
 export const ContainerScore = {
@@ -42,15 +47,17 @@ export const ContainerScore = {
   fontSize: 40,
   left: 45,
   top: 40,
+  zIndex: -1,
 };
 
 export const ContainerUserRED = {
-  color: red,
+  color: 'red',
 };
 
 export const Containersl = {
   fontWeight: 'bolder',
   fontSize: 30,
+  zIndex: -1,
 };
 
 export const ContainerLeaderboard = {
@@ -83,3 +90,16 @@ export const ContainerPlayagain = {
   textAlign: 'center',
   padding: 20,
 };
+
+export const ContainerUsername = {
+  position: 'relative',
+  top: 40,
+  left: 30,
+  fontWeight: 'bold',
+  fontSize: 20,
+  backgroundColor: 'white',
+  width: '100%',
+  zIndex: 1,
+  height: 40,
+};
+

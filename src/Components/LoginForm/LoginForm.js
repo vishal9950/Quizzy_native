@@ -1,6 +1,7 @@
 import React from 'react';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { PropTypes } from 'prop-types';
-import './LoginForm.css';
+import styles from './LoginForm.style';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -18,12 +19,24 @@ class LoginForm extends React.Component {
   render() {
     const { onChange, onClick } = this.props;
     return (
-      <div className="LoginForm-outer">
-        <div className="LoginForm-text">Login</div>
-        <div className="LoginForm-label"><label>Username</label></div>
-        <div className="LoginForm-inp"><input value={this.props.username} type="text" onChange={onChange} /></div>
-        <div className="LoginForm-btn"><button onClick={onClick}>Login</button></div>
-      </div>
+      <View className="LoginForm-outer" style={styles.LoginFormOuter}>
+        <View className="LoginForm-text"><Text style={styles.LoginFormText}>Login</Text></View>
+        <View className="LoginForm-label"><Text style={styles.LoginFormLabel}>Username</Text></View>
+        <View className="LoginForm-inp">
+          <TextInput
+            style={styles.LoginFormInp}
+            value={this.props.username}
+            onChangeText={(event) => { onChange(event); }}
+          />
+        </View>
+        <View className="LoginForm-btn" style={styles.LoginFormBtnView}>
+          <TouchableOpacity onPress={onClick} style={styles.LoginFormTouchBtn}>
+          <Text style={styles.LoginFormBtn}>
+            Login
+          </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }

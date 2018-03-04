@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import './LoginCard.css';
+import { Text, View } from 'react-native';
+import styles from './LoginCard.style';
 import LoginGreet from '../LoginGreet/LoginGreet';
 import LoginForm from '../LoginForm/LoginForm';
 
@@ -21,15 +22,15 @@ class LoginCard extends React.Component {
   render() {
     const { onChange, onClick } = this.props;
     return (
-      <div className="LoginCard-outer">
-        <span className="LoginCard-greet"><LoginGreet /></span>
-        <span className="LoginCard-form"><LoginForm
+      <View className="LoginCard-outer" style={styles.LoginCardOuter}>
+        <Text className="LoginCard-greet" style={styles.LoginCardGreet}><LoginGreet /></Text>
+        <Text className="LoginCard-form" style={styles.LoginCardForm}><LoginForm
           onClick={onClick}
           username={this.props.username}
           onChange={event => onChange(event)}
         />
-        </span>
-      </div>
+        </Text>
+      </View>
     );
   }
 }

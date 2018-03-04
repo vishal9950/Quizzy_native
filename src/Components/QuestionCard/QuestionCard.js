@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
+import { View, Text } from 'react-native';
 import { PropTypes } from 'prop-types';
 import RadioButton from '../RadioButton/RadioButton';
-import './QuestionCard.css';
+import styles from './QuestionCard.style';
 
 class QuestionCard extends React.Component {
   constructor(props) {
@@ -22,9 +22,9 @@ class QuestionCard extends React.Component {
   }
 
   getOptions = () => {
-    axios.get(`/options/${this.props.ques.quesid}`).then((options) => {
+    fetch(`http://localhost:8000/options/${this.props.ques.quesid}`).then(response => response.json()).then((options) => {
       this.setState({
-        options: options.data,
+        options: this.state.options.concat(options),
       });
     });
   }
@@ -39,21 +39,24 @@ class QuestionCard extends React.Component {
         score={this.props.score}
         ques={this.props.ques}
         answered={this.props.answered}
-        onChange={event => onChange(event, this.props.ques.quesid)}
+        onChange={(value) => {
+          console.log('dv');
+          onChange(value, this.props.ques.quesid);
+          }}
       />);
     }
 
     console.log(rows);
     return (
-      <div className="QuestionCard-outer">
-        <div className="QuestionCard-no">Question {this.props.qno}</div>
-        <div className="QuestionCard-ques">
-          {this.props.ques.ques}
-        </div>
-        <div className="QuestionCard-options">
-          {rows}
-        </div>
-      </div>
+      <View className="QuestionCard-outer" style={styles.QuestionCardOuter}>
+        <View className="QuestionCard-no" style={styles.QuestionCardNo}><Text style={styles.QuestionCardStyle}>Question {this.props.qno}</Text></View>
+        <View className="QuestionCard-ques" style={styles.QuestionCardQues}>
+          <Text style={styles.QuestionCardStyle}>{this.props.ques.ques}</Text>
+        </View>
+        <View style={styles.QuestionCardOptions}>
+          <View>{rows}</View>
+        </View>
+      </View>
     );
   }
 }
