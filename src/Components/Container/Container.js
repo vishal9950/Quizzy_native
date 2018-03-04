@@ -257,22 +257,19 @@ class Container extends React.Component {
     }
     if (flag === 1) {
       console.log('no');
-      // const options = {
-      //   method: 'GET',
-      // };
-      // fetch(`http://localhost:8000/sync/${this.state.username}`).then((state) => {
-      //   fetch(`/score/${this.state.username}`).then((scores) => {
-      //     this.setState({
-      //       ...this.state,
-      //       score: scores.body[0].score,
-      //       answered: state.data,
-      //       page: 2,
-      //     });
-      //   });
-      // });
-      // axios.get('/state').then((state) => {
+      fetch(`http://localhost:8000/sync/${this.state.username}`).then(response => response.json()).then((state) => {
+        fetch(`http://localhost:8000/score/${this.state.username}`).then(response => response.json()).then((scores) => {
+          this.setState({
+            ...this.state,
+            score: scores[0].score,
+            answered: state,
+            page: 2,
+          });
+        });
+      });
+      // fetch('http://localhost:8000/state').then((state) => {
 
-      // })
+      // });
     } else {
       const options = {
         method: 'POST',
@@ -283,10 +280,10 @@ class Container extends React.Component {
       };
       fetch('http://localhost:8000/users', options).then(response => response.text()).then(() => {
         console.log('User created!');
-      });
-      this.setState({
-        //   users: this.state.users.push(allUsers.data),
-        page: 2,
+        this.setState({
+          //   users: this.state.users.push(allUsers.data),
+          page: 2,
+        });
       });
     }
     // });
@@ -339,6 +336,7 @@ class Container extends React.Component {
       const rows = [];
       for (let i = 0; i < this.state.ques.length; i += 1) {
         rows.push(<QuestionCard
+          key={i}
           qno={i + 1}
           username={this.state.username}
           ques={this.state.ques[i]}
@@ -350,7 +348,7 @@ class Container extends React.Component {
 
       const buttn = this.state.answered.length === this.state.ques.length ?
         (<Button onPress={() => { this.onClickHandler1(); }} title="Calculate" />) :
-        (<Button title="Calculate" />);
+        (<Button title="Calculate" onPress={() => {}} />);
 
       return (
         <View>
@@ -369,9 +367,9 @@ class Container extends React.Component {
     }
     const rows = [];
     for (let i = 0; i < this.state.leaderboard.length; i += 1) {
-      rows.push(<View className="Container-leaders" style={styles.ContainerLeaders}>
+      rows.push(<View key={i} className="Container-leaders" style={styles.ContainerLeaders}>
         <Text className="Container-username"><Text className="Container-leaders-black" style={styles.ContainerLeadersBlack}>{i + 1}.</Text>
-          <Text style={this.state.username === this.state.leaderboard[i].username ? styles.ContainerUserRED : ''}>{this.state.leaderboard[i].username}</Text>
+          <Text style={this.state.username === this.state.leaderboard[i].username ? styles.ContainerUserRED : ''}> {this.state.leaderboard[i].username}</Text>
         </Text>
         <Text className="Container-scores" style={styles.ContainerScores}>{this.state.leaderboard[i].score}</Text>
                 </View>);
@@ -379,15 +377,15 @@ class Container extends React.Component {
 
     return (
       <View>
-        <View className="Container-usr" style={styles.ContainerUsr}>
-          <Text>Hello {this.state.username}</Text>
+        <View className="Container-usr">
+        <Text style={styles.ContainerUsername}>Hello {this.state.username}</Text>
         </View>
         <View className="Container-pg3">
-          <View className="Container-text" style={styles.ContainerText}>
-              <Text>Your Score</Text>
+          <View className="Container-text">
+              <Text style={styles.ContainerText}>Your Score</Text>
           </View>
-          <View className="Container-score" style={styles.ContainerScore}>
-            <Text>{this.state.score}</Text><Text className="Container-sl" style={styles.Containersl}>/{this.state.answered.length}</Text>
+          <View className="Container-score">
+            <Text style={styles.ContainerScore}>{this.state.score}</Text><Text className="Container-sl" style={styles.Containersl}>/{this.state.answered.length}</Text>
           </View>
           <View className="Container-leaderboard" style={styles.ContainerLeaderboard}>
             {rows}

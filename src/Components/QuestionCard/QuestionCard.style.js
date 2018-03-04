@@ -6,7 +6,6 @@ export default StyleSheet.create({
     top: 30,
     padding: 20,
     margin: 20,
-    textAlign: 'left',
     borderWidth: 1,
     height: 'auto',
     width: '75%',
@@ -14,15 +13,12 @@ export default StyleSheet.create({
   },
 
   QuestionCardNo: {
-    fontWeight: 'bold',
     zIndex: -1,
   },
 
   QuestionCardQues: {
-    fontWeight: 'bold',
     borderWidth: 1,
     width: '100%',
-    textAlign: 'center',
     backgroundColor: '#6ac5f0',
     paddingTop: 10,
     paddingBottom: 10,
@@ -40,7 +36,6 @@ export default StyleSheet.create({
   },
 
   QuestionCardOptions: {
-    fontWeight: 'bold',
     paddingTop: 10,
     zIndex: 1,
     left: 0,

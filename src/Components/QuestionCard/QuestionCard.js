@@ -34,6 +34,7 @@ class QuestionCard extends React.Component {
     const rows = [];
     for (let i = 0; i < this.state.options.length; i += 1) {
       rows.push(<RadioButton
+        key={i}
         value={this.state.options[i].option}
         name={this.props.ques.ques}
         score={this.props.score}

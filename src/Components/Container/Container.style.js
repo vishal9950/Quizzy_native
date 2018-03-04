@@ -17,14 +17,12 @@ export const ContainerQues = {
 };
 
 export const ContainerBtn = {
-  textAlign: 'center',
   marginBottom: 100,
   zIndex: -1,
 };
 
 export const ContainerUsr = {
-  float: 'right',
-  color: 'white',
+  color: 'black',
   position: 'relative',
   top: -40,
   right: 30,
@@ -35,18 +33,18 @@ export const ContainerText = {
   color: 'orange',
   fontWeight: 'bold',
   position: 'relative',
-  left: 30,
-  top: 30,
+  left: '40%',
+  top: 60,
   zIndex: -1,
 };
 
 export const ContainerScore = {
-  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
-  fontWeight: 'lighter',
+  fontFamily: 'Helvetica',
   position: 'relative',
-  fontSize: 40,
-  left: 45,
-  top: 40,
+  fontWeight: '200',
+  fontSize: 50,
+  left: '42%',
+  top: 70,
   zIndex: -1,
 };
 
@@ -56,6 +54,8 @@ export const ContainerUserRED = {
 
 export const Containersl = {
   fontWeight: 'bold',
+  left: '48%',
+  top: 30,
   fontSize: 30,
   zIndex: -1,
 };
@@ -75,11 +75,12 @@ export const ContainerLeaders = {
   width: '75%',
   borderWidth: 1,
   backgroundColor: '#6ac5f0',
-  color: 'white',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
 };
 
 export const ContainerScores = {
-  float: 'right',
+
 };
 
 export const ContainerLeadersBlack = {
@@ -87,7 +88,6 @@ export const ContainerLeadersBlack = {
 };
 
 export const ContainerPlayagain = {
-  textAlign: 'center',
   padding: 20,
 };
 
