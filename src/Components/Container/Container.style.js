@@ -55,14 +55,14 @@ export const ContainerUserRED = {
 };
 
 export const Containersl = {
-  fontWeight: 'bolder',
+  fontWeight: 'bold',
   fontSize: 30,
   zIndex: -1,
 };
 
 export const ContainerLeaderboard = {
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   marginTop: 100,
@@ -73,7 +73,7 @@ export const ContainerLeaders = {
   padding: 10,
   margin: 20,
   width: '75%',
-  border: '1 solid black',
+  borderWidth: 1,
   backgroundColor: '#6ac5f0',
   color: 'white',
 };

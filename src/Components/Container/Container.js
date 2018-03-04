@@ -101,7 +101,7 @@ class Container extends React.Component {
         temp[j].username = this.state.username;
         const options = {
           method: 'POST',
-          data: JSON.stringify({
+          body: JSON.stringify({
             username: this.state.username,
             score: this.state.score + 1,
           }),
@@ -109,7 +109,7 @@ class Container extends React.Component {
         fetch('http://localhost:8000/users', options).then(() => {
           const options1 = {
             method: 'POST',
-            data: JSON.stringify(temp),
+            body: JSON.stringify(temp),
           };
           fetch('http://localhost:8000/sync', options1).then(() => {
             console.log('Score saved!');
@@ -126,7 +126,7 @@ class Container extends React.Component {
         temp[j].username = this.state.username;
         const options = {
           method: 'POST',
-          data: JSON.stringify(temp),
+          body: JSON.stringify(temp),
         };
         fetch('http://localhost:8000/sync', options).then(() => {
           console.log('here3');
@@ -139,7 +139,7 @@ class Container extends React.Component {
         console.log('here4');
         const options = {
           method: 'POST',
-          data: JSON.stringify({
+          body: JSON.stringify({
             username: this.state.username,
             score: this.state.score + 1,
           }),
@@ -147,7 +147,7 @@ class Container extends React.Component {
         fetch('http://localhost:8000/users', options).then(() => {
           const options1 = {
             method: 'POST',
-            data: JSON.stringify(this.state.answered.concat({
+            body: JSON.stringify(this.state.answered.concat({
               quesid,
               rt: true,
               option: value,
@@ -178,7 +178,7 @@ class Container extends React.Component {
         temp[j].username = this.state.username;
         const options = {
           method: 'POST',
-          data: JSON.stringify(temp),
+          body: JSON.stringify(temp),
         };
         fetch('http://localhost:8000/sync', options).then(() => {
           console.log('here6');
@@ -195,7 +195,7 @@ class Container extends React.Component {
         temp[j].username = this.state.username;
         const options = {
           method: 'POST',
-          data: JSON.stringify({
+          body: JSON.stringify({
             username: this.state.username,
             score: this.state.score - 1,
           }),
@@ -204,7 +204,7 @@ class Container extends React.Component {
           console.log('Users');
           const options1 = {
             method: 'POST',
-            data: JSON.stringify(temp),
+            body: JSON.stringify(temp),
           };
           fetch('http://localhost:8000/sync', options1).then(() => {
             console.log('Score saved!');
@@ -217,7 +217,7 @@ class Container extends React.Component {
       } else if (j === this.state.answered.length) {
         const options = {
           method: 'POST',
-          data: JSON.stringify(this.state.answered.concat({
+          body: JSON.stringify(this.state.answered.concat({
             quesid,
             rt: false,
             option: value,
@@ -264,7 +264,7 @@ class Container extends React.Component {
       //   fetch(`/score/${this.state.username}`).then((scores) => {
       //     this.setState({
       //       ...this.state,
-      //       score: scores.data[0].score,
+      //       score: scores.body[0].score,
       //       answered: state.data,
       //       page: 2,
       //     });
@@ -371,7 +371,7 @@ class Container extends React.Component {
     for (let i = 0; i < this.state.leaderboard.length; i += 1) {
       rows.push(<View className="Container-leaders" style={styles.ContainerLeaders}>
         <Text className="Container-username"><Text className="Container-leaders-black" style={styles.ContainerLeadersBlack}>{i + 1}.</Text>
-          <Text className={this.state.username === this.state.leaderboard[i].username ? 'Container-userRED' : ''}>{this.state.leaderboard[i].username}</Text>
+          <Text style={this.state.username === this.state.leaderboard[i].username ? styles.ContainerUserRED : ''}>{this.state.leaderboard[i].username}</Text>
         </Text>
         <Text className="Container-scores" style={styles.ContainerScores}>{this.state.leaderboard[i].score}</Text>
                 </View>);
@@ -380,21 +380,21 @@ class Container extends React.Component {
     return (
       <View>
         <View className="Container-usr" style={styles.ContainerUsr}>
-          Hello {this.state.username}
+          <Text>Hello {this.state.username}</Text>
         </View>
         <View className="Container-pg3">
           <View className="Container-text" style={styles.ContainerText}>
               <Text>Your Score</Text>
           </View>
           <View className="Container-score" style={styles.ContainerScore}>
-            {this.state.score}<Text className="Container-sl" style={styles.Containersl}>/{this.state.answered.length}</Text>
+            <Text>{this.state.score}</Text><Text className="Container-sl" style={styles.Containersl}>/{this.state.answered.length}</Text>
           </View>
           <View className="Container-leaderboard" style={styles.ContainerLeaderboard}>
             {rows}
           </View>
         </View>
         <View className="Container-playagain" style={styles.ContainerPlayagain}>
-          <button onClick={() => { this.onClickHandler2(); }}>Play Again</button>
+          <Button onPress={() => { this.onClickHandler2(); }} title="Play Again" />
         </View>
       </View>
     );
